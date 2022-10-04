@@ -6,7 +6,7 @@
 /*   By: kalshaer <kalshaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:34:05 by kalshaer          #+#    #+#             */
-/*   Updated: 2022/09/04 17:03:06 by kalshaer         ###   ########.fr       */
+/*   Updated: 2022/10/04 12:16:19 by kalshaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,15 @@ typedef struct t_type
 	int	hash;
 	int	plus;
 	int	check;
-	int	snum;
-	int	zero;
-	int	dash;
-	int	width;
-	int	dot;
 }	s_type;
 
 
 int	ft_printf(const char *, ...);
+int	ft_printf_tomin(const char *s, va_list r, s_type t);
 int	ft_printf_countdigit(int d);
 const char	*ft_printf_removeextraflags(const char *s, s_type *t);
-int	ft_printf_checkflags(s_type *t);
+const char	*ft_printf_checkflags(const char *s, s_type *t);
+int	ft_printf_checkspases(s_type *t);
 int	ft_printf_to_convertc(const char *s, va_list r, s_type *t);
 int	ft_printf_to_converts(const char *s, va_list r, s_type *t);
 int	ft_printf_to_convertp(const char *s, va_list r, s_type *t);

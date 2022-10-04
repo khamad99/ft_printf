@@ -6,7 +6,7 @@
 /*   By: kalshaer <kalshaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:31:28 by kalshaer          #+#    #+#             */
-/*   Updated: 2022/09/04 17:16:18 by kalshaer         ###   ########.fr       */
+/*   Updated: 2022/10/04 12:16:11 by kalshaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ void	ft_printf_s_type(s_type * t)
 	t->hash = 0;
 	t->plus = 0;
 	t->space = 0;
-	t->dot = 0;
-	t->dash = 0;
-	t->width = 0;
-	t->zero = 0;
-
 }
 
 const char	*ft_printf_removeextraflags(const char *s, s_type *t)
@@ -32,32 +27,11 @@ const char	*ft_printf_removeextraflags(const char *s, s_type *t)
 
 	i = 1;
 	ii = 2;
-	if (s[i] == '#')
-	{
-		t->check = 1;
-		t->hash = 1;
-	}
-	if (s[i] == ' ')
-	{
-		t->check = 1;
-		t->space = 1;
-	}
-	if (s[i] == '+')
-	{
-		t->check = 1;
-		t->plus = 1;
-	}
-	while (s[i] == '#' && ft_strchr("# +", s[ii]))
-	{
-		t->check = 1;
-		t->hash = 1;
+	while ((s[i] == '#' || s[i] == '+') && ft_strchr("# +", s[ii]))
 		ii++;
-	}
-	while (s[i] == ' ' && !ft_strchr("cspdiuxX%", s[ii]))
+	while (s[i] == ' ' && ft_strchr("# +", s[ii]))
 	{
-		t->check = 1;
 		t->hash = 1;
-		t->space = 1;
 		if (s[ii] == '+')
 		{
 			t->space = 0;
@@ -65,19 +39,7 @@ const char	*ft_printf_removeextraflags(const char *s, s_type *t)
 		}
 		ii++;
 	}
-	while ((s[i] == ' ' && ft_isdigit(s[ii])) || ft_isdigit(s[ii]))
-	{
-		t->check = 1;
-		t->width = ft_atoi(s);
-		ii++;
-	}
-	while (s[i] == '+' && ft_strchr("# +", s[ii]))
-	{
-		t->check = 1;
-		t->plus = 1;
-		ii++;
-	}
-	if (t->check)
+	if (t->plus || t->hash || t->space)
 	{
 		t->check = ii;
 		return (&s[ii - 1]);
@@ -85,7 +47,18 @@ const char	*ft_printf_removeextraflags(const char *s, s_type *t)
 	return (s);
 }
 
-int	ft_printf_checkflags(s_type *t)
+const char	*ft_printf_checkflags(const char *s, s_type *t)
+{
+	if (s[1] == '#')
+		t->hash = 1;
+	if (s[1] == ' ')
+		t->space = 1;
+	if (s[1] == '+')
+		t->plus = 1;
+	return (ft_printf_removeextraflags(s, t));
+}
+
+int	ft_printf_checkspases(s_type *t)
 {
 	if (t->check)
 		return (t->check);
@@ -93,16 +66,12 @@ int	ft_printf_checkflags(s_type *t)
 		return (0);
 }
 
-int	ft_printf(const char *s, ...)
+int	ft_printf_tomin(const char *s, va_list r, s_type t)
 {
 	int		i;
 	int		num;
-	va_list	r;
-	s_type	t;
 
-	ft_printf_s_type(&t);
 	num = 0;
-	va_start (r, s);
 	i = -1;
 	while (s[++i])
 	{
@@ -111,12 +80,12 @@ int	ft_printf(const char *s, ...)
 			write (1, &s[i], 1);
 			num++;
 		}
-		if (s[i] == '%' && (ft_strchr("cspdiuxX%# +-0.", s[i + 1]) || ft_isdigit(s[i + 1])))
+		if (s[i] == '%' && (ft_strchr("cspdiuxX%# +", s[i + 1])))
 		{
-			if (ft_strchr("# +-0.", s[i + 1]) || ft_isdigit(s[i + 1]))
+			if (ft_strchr("# +", s[i + 1]))
 			{
-				num = num + ft_printf_to_convertc (ft_printf_removeextraflags (&s[i], &t), r, &t);
-				i = i + ft_printf_checkflags(&t);
+				num = num + ft_printf_to_convertc (ft_printf_checkflags (&s[i], &t), r, &t);
+				i = i + ft_printf_checkspases(&t);
 				ft_printf_s_type(&t);
 			}
 			else
@@ -126,6 +95,18 @@ int	ft_printf(const char *s, ...)
 			}
 		}
 	}
+	return (num);
+}
+
+int	ft_printf(const char *s, ...)
+{
+	va_list	r;
+	s_type	t;
+	int		num;
+
+	ft_printf_s_type(&t);
+	va_start (r, s);
+	num = ft_printf_tomin(s, r, t);
 	va_end(r);
 	return (num);
 }
