@@ -6,7 +6,7 @@
 /*   By: kalshaer <kalshaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:34:05 by kalshaer          #+#    #+#             */
-/*   Updated: 2022/10/04 12:16:19 by kalshaer         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:14:32 by kalshaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct t_type
 
 
 int	ft_printf(const char *, ...);
-int	ft_printf_tomin(const char *s, va_list r, s_type t);
+void	ft_printf_tomin(const char *s, va_list r, s_type t, int *num, int *i);
 int	ft_printf_countdigit(int d);
 const char	*ft_printf_removeextraflags(const char *s, s_type *t);
 const char	*ft_printf_checkflags(const char *s, s_type *t);

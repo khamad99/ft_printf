@@ -4,7 +4,7 @@ NAME = libftprintf.a
 
 SOURCES = ft_printf.c ft_printf_support.c ft_printf_to_convert.c
 
-SOURCES_bonus = ft_printf_bonus.c ft_printf_support_bonus.c ft_printf_to_convert_bonus.c ft_printf_flags.c
+SOURCES_bonus = ft_printf_bonus.c ft_printf_support_bonus.c ft_printf_to_convert_bonus.c ft_printf_flags_bonus.c
 
 OBJECTS = $(SOURCES:%.c=%.o)
 
