@@ -6,7 +6,7 @@
 /*   By: kalshaer <kalshaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 21:55:57 by kalshaer          #+#    #+#             */
-/*   Updated: 2022/09/01 15:05:54 by kalshaer         ###   ########.fr       */
+/*   Updated: 2022/10/05 14:16:04 by kalshaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_printf_countdigit(int d)
 {
-	int r;
-	char *t;
+	int		r;
+	char	*t;
 
 	t = ft_itoa(d);
 	r = ft_strlen(t);
@@ -54,12 +54,12 @@ void	ft_printf_printx(unsigned int x, int *i, char *base)
 	write(1, &base[x % 16], 1);
 }
 
-void	ft_printf_printX(unsigned int X, int *i, char *base)
+void	ft_printf_printxx(unsigned int xx, int *i, char *base)
 {
-	if (X >= 16)
+	if (xx >= 16)
 	{
 		*i = *i + 1;
-		ft_printf_printX(X / 16, i, "0123456789ABCDEF");
+		ft_printf_printxx(xx / 16, i, "0123456789ABCDEF");
 	}
-	write(1, &base[X % 16], 1);
+	write(1, &base[xx % 16], 1);
 }

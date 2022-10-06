@@ -6,7 +6,7 @@
 /*   By: kalshaer <kalshaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 08:17:24 by kalshaer          #+#    #+#             */
-/*   Updated: 2022/09/01 14:57:02 by kalshaer         ###   ########.fr       */
+/*   Updated: 2022/10/05 14:21:46 by kalshaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ int	ft_printf_to_converts(char s, va_list r)
 
 int	ft_printf_to_convertp(char s, va_list r)
 {
-	int num;
+	int	num;
+
 	num = 1;
 	if (s == 'p')
 	{
 		ft_putstr_fd("0x", 1);
 		num = num + 2;
-		ft_printf_printp((unsigned long)va_arg(r, void *), &num, "0123456789abcdef");
+		ft_printf_printp((unsigned long)va_arg(r, void *),
+			&num, "0123456789abcdef");
 		return (num);
 	}
 	return (ft_printf_to_convertdi(s, r));
@@ -79,13 +81,13 @@ int	ft_printf_to_convertdi(char s, va_list r)
 		ft_putnbr_fd(i, 1);
 		return (ft_printf_countdigit(i));
 	}
-	return (ft_printf_to_convertuxX(s, r));
+	return (ft_printf_to_convertuxxx(s, r));
 }
 
-int	ft_printf_to_convertuxX(char s, va_list r)
+int	ft_printf_to_convertuxxx(char s, va_list r)
 {
 	unsigned int	u;
-	int num;
+	int				num;
 
 	num = 1;
 	if (s == 'u')
@@ -101,9 +103,8 @@ int	ft_printf_to_convertuxX(char s, va_list r)
 	}
 	if (s == 'X')
 	{
-		ft_printf_printX(va_arg (r, int), &num, "0123456789ABCDEF");
+		ft_printf_printxx(va_arg (r, int), &num, "0123456789ABCDEF");
 		return (num);
 	}
 	return (0);
 }
-

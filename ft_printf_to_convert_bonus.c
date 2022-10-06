@@ -6,13 +6,13 @@
 /*   By: kalshaer <kalshaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 08:17:24 by kalshaer          #+#    #+#             */
-/*   Updated: 2022/09/01 16:35:41 by kalshaer         ###   ########.fr       */
+/*   Updated: 2022/10/05 14:22:01 by kalshaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-int	ft_printf_to_convertc(const char *s, va_list r, s_type *t)
+int	ft_printf_to_convertc(const char *s, va_list r, t_type *t)
 {
 	if (*s == 'c')
 	{
@@ -27,7 +27,7 @@ int	ft_printf_to_convertc(const char *s, va_list r, s_type *t)
 	return (ft_printf_to_converts(s, r, t));
 }
 
-int	ft_printf_to_converts(const char *s, va_list r, s_type *t)
+int	ft_printf_to_converts(const char *s, va_list r, t_type *t)
 {
 	char	*ss;
 
@@ -48,21 +48,23 @@ int	ft_printf_to_converts(const char *s, va_list r, s_type *t)
 	return (ft_printf_to_convertp(s, r, t));
 }
 
-int	ft_printf_to_convertp(const char *s, va_list r, s_type *t)
+int	ft_printf_to_convertp(const char *s, va_list r, t_type *t)
 {
-	int num;
+	int	num;
+
 	num = 1;
 	if (*s == 'p')
 	{
 		ft_putstr_fd("0x", 1);
 		num = num + 2;
-		ft_printf_printp((unsigned long)va_arg(r, void *), &num, "0123456789abcdef");
+		ft_printf_printp((unsigned long)va_arg(r, void *),
+			&num, "0123456789abcdef");
 		return (num);
 	}
 	return (ft_printf_to_convertdi(s, r, t));
 }
 
-int	ft_printf_to_convertdi(const char *s, va_list r, s_type *t)
+int	ft_printf_to_convertdi(const char *s, va_list r, t_type *t)
 {
 	int	d;
 	int	i;
@@ -79,13 +81,13 @@ int	ft_printf_to_convertdi(const char *s, va_list r, s_type *t)
 		ft_putnbr_fd(i, 1);
 		return (ft_printf_countdigit(i));
 	}
-	return (ft_printf_to_convertuxX(s, r, t));
+	return (ft_printf_to_convertuxxx(s, r, t));
 }
 
-int	ft_printf_to_convertuxX(const char *s, va_list r, s_type *t)
+int	ft_printf_to_convertuxxx(const char *s, va_list r, t_type *t)
 {
 	unsigned int	u;
-	int num;
+	int				num;
 
 	num = 1;
 	if (*s == 'u')
@@ -101,9 +103,8 @@ int	ft_printf_to_convertuxX(const char *s, va_list r, s_type *t)
 	}
 	if (*s == 'X')
 	{
-		ft_printf_printX(va_arg (r, int), &num, "0123456789ABCDEF");
+		ft_printf_printxx(va_arg (r, int), &num, "0123456789ABCDEF");
 		return (num);
 	}
 	return (ft_printf_flags(s, r, t));
 }
-
