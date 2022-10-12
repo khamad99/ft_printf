@@ -6,11 +6,11 @@
 /*   By: kalshaer <kalshaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 21:55:57 by kalshaer          #+#    #+#             */
-/*   Updated: 2022/10/05 14:16:04 by kalshaer         ###   ########.fr       */
+/*   Updated: 2022/10/12 07:42:12 by kalshaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 int	ft_printf_countdigit(int d)
 {

@@ -6,7 +6,7 @@
 /*   By: kalshaer <kalshaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:31:28 by kalshaer          #+#    #+#             */
-/*   Updated: 2022/08/31 09:00:48 by kalshaer         ###   ########.fr       */
+/*   Updated: 2022/10/12 07:42:33 by kalshaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,3 @@ int	ft_printf(const char *s, ...)
 	va_end(r);
 	return (num);
 }
-
-// int main (void)
-// {
-// 	int i = 1;
-// 	int r = ft_printf("%u\n", -1);
-// 	int rr = printf("%u\n", -1);
-// 	printf("%d\n%d\n", r, rr);
-// }
